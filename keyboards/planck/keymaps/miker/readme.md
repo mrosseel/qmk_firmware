@@ -1,5 +1,7 @@
 # Dvorak-centric planck keymap
 
+![Planck](http://i.imgur.com/q2M3uEU.jpg)
+
 ## main features
 
 * host computer OS can/should be in Dvorak layout for seamless switching between dvorak on planck and dvorak on e.g. laptop Keyboard

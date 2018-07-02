@@ -4,6 +4,8 @@
 #include "config_common.h"
 
 #define TAPPING_TERM 200
+#define PREVENT_STUCK_MODIFIERS
+#define PERMISSIVE_HOLD
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
