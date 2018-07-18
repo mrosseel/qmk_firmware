@@ -132,17 +132,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |  ^   |   (  |  )   |  =   |  +   |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   {  |  }   |      |   -  |  \   |
+ * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   {  |  }   |  &   |  -   |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   [  |  ]   |      |   *  |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   [  |  ]   |  ^   |  *   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Copy | Paste|Cut   | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______,    KC_LPRN,  KC_RPRN, KC_KP_EQUAL , KC_KP_PLUS,    KC_DEL},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       DV_LCBR,  DV_RCBR, KC_NO    , KC_KP_MINUS,    KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      DV_LBRC,  DV_RBRC, KC_NO    , KC_KP_ASTERISK, _______},
+  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______,    KC_LPRN,  KC_RPRN, KC_KP_EQUAL  , KC_KP_PLUS,    KC_DEL},
+  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       DV_LCBR,  DV_RCBR, KC_AMPERSAND , KC_KP_MINUS,    KC_BSLS},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, KC_KP_ASTERISK, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______,        TD(1), KC_PASTE, KC_CUT, KC_FIND}
 },
 
