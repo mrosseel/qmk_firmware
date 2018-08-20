@@ -71,12 +71,13 @@ enum {
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define MAC_SLEEP LALT(LGUI(KC_SYSTEM_SLEEP))
+#define MAC_CUT LGUI(DV_X)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* My Dvorak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
+ * | Tab  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |  /   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -86,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MY_DVORAK] = {
-  {KC_TAB,  DV_QUOT, DV_COMM, DV_DOT,  DV_P,    DV_Y,    DV_F,    DV_G,    DV_C,    DV_R,    DV_L,    KC_BSPC},
-  {KC_ESC,  DV_A,    DV_O,    DV_E,    DV_U,    DV_I,    DV_D,    DV_H,    DV_T,    DV_N,    DV_S,    DV_SLSH},
-  {F(F_SFT), DV_SCLN, DV_Q,    DV_J,    DV_K,    DV_X,    DV_B,    DV_M,    DV_W,    DV_V,    DV_Z,    KC_ENT },
-  {KC_MPLY, F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER),   LT(_TMUX, KC_SPC),KC_SPC,  TT(_RAISE),   KC_LEFT, KC_UP, KC_DOWN, KC_RGHT}
+  {KC_TAB,   DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,         DV_Y,              DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
+  {KC_GESC,  DV_A,      DV_O,     DV_E,    DV_U,         DV_I,              DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
+  {F(F_SFT), DV_SCLN,   DV_Q,     DV_J,    DV_K,         DV_X,              DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
+  {KC_MPLY,  F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER),   LT(_TMUX, KC_SPC), KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
 
   /* TM2030 Dvorak
@@ -116,16 +117,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |PgDown|   4  |   5  |   6  |  -   |  -_  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |   7  |   8  |   9  |  *   |  \|  |
+ * |      |  F8  |  F9  |  F10 |  F11 |  F12 |   `  |   7  |   8  |   9  |  *   |  \|  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |   0  | Home |  End | End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {DV_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,        KC_1,    KC_2,     KC_3,     KC_KP_PLUS,     DV_SLSH},
-  {_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,        KC_4,    KC_5,     KC_6,     KC_KP_MINUS,    DV_MINS},
-  {_______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   LSFT(KC_NUHS),  KC_7,    KC_8,     KC_9,     KC_KP_ASTERISK, DV_BSLS},
-  {_______, KC_F11,  KC_F12,  _______, _______, _______,  _______,        _______, KC_0,     KC_HOME,  KC_END,         KC_END}
+  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_1,    KC_2,     KC_3,     KC_KP_PLUS,     DV_SLSH},
+  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     KC_KP_MINUS,    DV_MINS},
+  {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_7,    KC_8,     KC_9,     KC_KP_ASTERISK, DV_BSLS},
+  {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  _______, KC_0,     KC_HOME,  KC_END,         KC_END}
 },
 
 /* Raise
@@ -136,14 +137,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |   [  |  ]   |  ^   |  *   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Copy | Paste|Cut   | Play |
+ * |      |      |      |      |      |             |      |Copy/P| Cut  | Cut  | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______,    KC_LPRN,  KC_RPRN, KC_KP_EQUAL  , KC_KP_PLUS,    KC_DEL},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,       DV_LCBR,  DV_RCBR, KC_AMPERSAND , KC_KP_MINUS,    KC_BSLS},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,      DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, KC_KP_ASTERISK, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______,        TD(1), KC_PASTE, KC_CUT, KC_FIND}
+  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______, KC_LPRN,  KC_RPRN, KC_KP_EQUAL  , KC_KP_PLUS,     KC_DEL},
+  {KC_DEL,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    DV_LCBR,  DV_RCBR, KC_AMPERSAND , KC_KP_MINUS,    KC_BSLS},
+  {_______,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, KC_KP_ASTERISK, _______},
+  {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   MAC_CUT,      KC_MUTE,        KC_FIND}
 },
 
 
@@ -190,8 +191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {MAC_SLEEP, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,        QWERTY},
   {KC_SYSTEM_SLEEP, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______, _______,  MY_DVORAK},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, _______,           DVORAK},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, MOUSE,             PLOVER}
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, MOUSE,           DVORAK},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,             PLOVER}
 },
 
 /* Mouse
