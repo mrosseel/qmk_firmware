@@ -4,17 +4,18 @@
 #include "config_common.h"
 
 #define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
 #define PREVENT_STUCK_MODIFIERS
 #define PERMISSIVE_HOLD
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(PLANCK_SOUND)
-    // #define STARTUP_SONG SONG(NO_SOUND)
+#define STARTUP_SONG SONG(PLANCK_SOUND)
+// #define STARTUP_SONG SONG(NO_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
-                                }
+#define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                              SONG(COLEMAK_SOUND), \
+                              SONG(DVORAK_SOUND) \
+                            }
 #endif
 
 /*

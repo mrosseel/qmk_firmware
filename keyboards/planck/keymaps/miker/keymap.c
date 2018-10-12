@@ -51,6 +51,7 @@ enum planck_keycodes {
 enum {
   TD_SHIFT_CAPS = 0,
   TD_COPYPASTE,
+  TD_DOTCOMMA,
   TD_LAYER_3,
   TD_DOUBLE,
   TD_LAYER_1
@@ -87,10 +88,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MY_DVORAK] = {
-  {KC_TAB,   DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,         DV_Y,              DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
-  {KC_GESC,  DV_A,      DV_O,     DV_E,    DV_U,         DV_I,              DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
-  {F(F_SFT), DV_SCLN,   DV_Q,     DV_J,    DV_K,         DV_X,              DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
-  {KC_MPLY,  F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER),   LT(_TMUX, KC_SPC), KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+  {KC_TAB,              DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,       DV_Y,    DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
+  {KC_GESC,             DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
+  {F(F_SFT),            DV_SCLN,   DV_Q,     DV_J,    DV_K,       DV_X,    DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
+  {LT(_TMUX, KC_MPLY),  F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER), KC_SPC,  KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
 
   /* TM2030 Dvorak
@@ -113,20 +114,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  | PgUp |   1  |   2  |   3  |  +   | /?   |
+ * |   ~  |   !  |   @  |   #  |   $  |   %  | PgUp |   7  |   8  |   9  |  +   |  ?   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |  F5  |PgDown|   4  |   5  |   6  |  -   |  -_  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F8  |  F9  |  F10 |  F11 |  F12 |   `  |   7  |   8  |   9  |  *   |  \|  |
+ * |      |  F8  |  F9  |  F10 |  F11 |  F12 |   `  |   1  |   2  |   3  |  *   |  \|  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |   0  | Home |  End | End  |
+ * |      |      |      |      |      |             |      |   0  | Home |  End | Bksp |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_1,    KC_2,     KC_3,     KC_KP_PLUS,     DV_SLSH},
+  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_7,    KC_8,     KC_9,     KC_KP_PLUS,     LSFT(DV_SLSH)},
   {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     KC_KP_MINUS,    DV_MINS},
-  {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_7,    KC_8,     KC_9,     KC_KP_ASTERISK, DV_BSLS},
-  {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  _______, KC_0,     KC_HOME,  KC_END,         KC_END}
+  {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_1,    KC_2,     KC_3,     KC_KP_ASTERISK, DV_BSLS},
+  {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  TD(2),   KC_0,     KC_HOME,  KC_END,         KC_BSPC}
 },
 
 /* Raise
@@ -144,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______, KC_LPRN,  KC_RPRN, KC_KP_EQUAL  , KC_KP_PLUS,     KC_DEL},
   {KC_DEL,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    DV_LCBR,  DV_RCBR, KC_AMPERSAND , KC_KP_MINUS,    KC_BSLS},
   {_______,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, KC_KP_ASTERISK, _______},
-  {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   MAC_CUT,      KC_MUTE,        KC_FIND}
+  {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   MAC_CUT,      KC_MUTE,        MAC_SLEEP}
 },
 
 
@@ -152,10 +153,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // most macros will switch tmux screens
 // two macros are for vi's save/quit at 'w' and 'q'
 [_TMUX] = {
-  { _______, M(14),   M(13),   _______, _______, _______, _______, _______, _______, _______,    M(11),   _______ },
-  { M(0),    M(1),    M(2),    M(3),    M(4),    M(5),    M(6),    M(7),    M(8),    M(9),       _______, _______ },
-  { _______, _______, _______, M(12),   _______, _______, M(10),      _______, _______, _______, _______, _______ },
-  { _______, _______, _______, _______, _______, KC_TRNS,    _______, _______, _______, _______, _______, _______ }
+  { M(0),       M(1),       M(2),       M(3),       M(4),    M(5), M(16),    M(7),    M(8), _______, M(9),   _______ },
+  { _______,    LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4),    LSFT(KC_5),    KC_PGDN, _______,    M(11),    M(10),   M(18),    _______ },
+  { LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______,   _______, _______, _______, _______, _______ },
+  { _______, _______, _______,  _______,  _______, KC_TRNS, _______, _______, _______, _______, _______, _______ }
 },
 
 /* Plover layer (http://opensteno.org)
@@ -393,9 +394,10 @@ bool music_mask_user(uint16_t keycode) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
+  //Tap once for shift, twice for Caps Lock
   [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   [TD_COPYPASTE] = ACTION_TAP_DANCE_DOUBLE(LGUI(DV_C), LGUI(DV_V)),
+  [TD_DOTCOMMA] = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM),
 
 //  [TD_LAYER_3]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 3),
 //  [TD_DOUBLE] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_2),
@@ -414,49 +416,57 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+      // this if prevents the actions from firing twice
+      if (! record->event.pressed) {
+        return MACRO_NONE;
+      }
+      // if(id < 10) {
+      //   return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGUP), END );
+      //   break;
+      // }
       switch(id) {
         case 0:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_0), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_0), END );
           break;
         case 1:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_1), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_1), END );
           break;
         case 2:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_2), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_2), END );
           break;
         case 3:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_3), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_3), END );
           break;
         case 4:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_4), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_4), END );
           break;
         case 5:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_5), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_5), END );
           break;
         case 6:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_6), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_6), END );
           break;
         case 7:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_7), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_7), END );
           break;
         case 8:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_8), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_8), END );
           break;
+        // tmux last window
         case 9:
-          // tmux last window
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_L), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_L), END );
           break;
-          // tmux next window
+        // tmux next window
         case 10:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_N), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_N), END );
           break;
-          // tmux previous window
+        // tmux previous window
         case 11:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_P), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_P), END );
           break;
           // tmux new window
         case 12:
-          return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), TYPE(KC_C), END );
+          return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_C), END );
           break;
         case 13:
           // vi save document
@@ -470,6 +480,18 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 15:
           return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), END );
           break;
-      }
+        case 16:
+            print("tmux 0\n");
+            return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGUP), END );
+            break;
+          case 17:
+            print("tmux 1\n");
+            return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGDN), END );
+            break;
+          case 18:
+            print("tmux 2\n");
+            return MACRODOWN( DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_S), END );
+            break;
+                }
     return MACRO_NONE;
 };
