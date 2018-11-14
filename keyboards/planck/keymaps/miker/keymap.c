@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MY_DVORAK] = {
   {KC_TAB,                DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,       DV_Y,    DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
-  {MT(MOD_HYPR,KC_GESC),  DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
+  {MT(MOD_HYPR,KC_ESC),  DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
   {F(F_SFT),              DV_SCLN,   DV_Q,     DV_J,    DV_K,       DV_X,    DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
   {LT(_TMUX, KC_MPLY),    F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER), KC_SPC,  KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
