@@ -7,6 +7,11 @@
 * host computer OS can/should be in Dvorak layout for seamless switching between dvorak on planck and dvorak on e.g. laptop Keyboard
 * number pad is under the right hand, as it is on a full scale number pad, with the same layout.
 * there is a tmux layer for various tmux commands. This layer also hosts other custom shortcuts
+* When ESC is held, it activates MEH
+
+## Compiling
+
+make planck/rev5:miker
 
 ## todos
 
