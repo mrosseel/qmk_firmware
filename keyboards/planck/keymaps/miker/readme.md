@@ -11,9 +11,12 @@
 
 ## Compiling
 
-make planck/rev5:miker
+make planck/rev4:miker
+
+(note on how to recognise your revision: rev4 and before pcb boards are white, rev5 and later are black. 4 has a speaker, 3 doesn't.)
 
 ## todos
 
 * arrow keys on one row is still strange, should remap it to normal layout when e.g. holding the media play key
-* should add a HYPR button somewhere, maybe on ESC?
+
+
