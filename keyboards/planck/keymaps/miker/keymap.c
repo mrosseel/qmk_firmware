@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_MY_DVORAK] = {
   {KC_TAB,                DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,       DV_Y,    DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
-  {MT(MOD_MEH,KC_ESC),  DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
+  {MT(MOD_MEH,KC_ESC),    DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
   {F(F_SFT),              DV_SCLN,   DV_Q,     DV_J,    DV_K,       DV_X,    DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
   {LT(_TMUX, KC_MPLY),    F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER), KC_SPC,  KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
@@ -170,6 +170,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
  * `-----------------------------------------------------------------------------------'
 */
+// [_PLOVER] = {
+//   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
+//   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
+//   {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+//   {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
+// },
+
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+*/
 [_PLOVER] = {
   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
@@ -192,8 +210,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = {
   {MAC_SLEEP, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,        QWERTY},
   {KC_SYSTEM_SLEEP, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______, _______,  MY_DVORAK},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, MOUSE,           DVORAK},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,             PLOVER}
+  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, MOUSE,             DVORAK},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,           PLOVER}
 },
 
 /* Mouse
