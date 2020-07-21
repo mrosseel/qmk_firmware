@@ -30,8 +30,7 @@ enum planck_layers {
   _RAISE,
   _TMUX,
   _PLOVER,
-  _ADJUST,
-  _MOUSE
+  _ADJUST
 };
 
 enum planck_keycodes {
@@ -40,11 +39,10 @@ enum planck_keycodes {
   DVORAK,
   // COLEMAK,
   QWERTY,
-  PLOVER,
+  // PLOVER,
   TMUX,
-  BACKLIT,
-  EXT_PLV,
-  MOUSE
+  BACKLIT
+  /* EXT_PLV */
 };
 
 /* Tap Dance keys */
@@ -124,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_7,    KC_8,     KC_9,     KC_KP_PLUS,     LSFT(DV_SLSH)},
-  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     KC_KP_MINUS,    DV_MINS},
-  {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_1,    KC_2,     KC_3,     KC_KP_ASTERISK, DV_BSLS},
+  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_7,    KC_8,     KC_9,     DV_PLUS,     LSFT(DV_SLSH)},
+  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     DV_MINS,    DV_MINS},
+  {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_1,    KC_2,     KC_3,     DV_ASTR, DV_BSLS},
   {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  TD(2),   KC_0,     KC_HOME,  KC_END,         KC_BSPC}
 },
 
@@ -142,9 +140,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______, KC_LPRN,  KC_RPRN, KC_KP_EQUAL  , KC_KP_PLUS,     KC_DEL},
-  {KC_DEL,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    DV_LCBR,  DV_RCBR, KC_AMPERSAND , KC_KP_MINUS,    KC_BSLS},
-  {_______,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, KC_KP_ASTERISK, _______},
+  {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______, KC_LPRN,  KC_RPRN, KC_EQUAL     , DV_PLUS,     KC_DEL},
+  {KC_DEL,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    DV_LCBR,  DV_RCBR, KC_AMPERSAND , DV_MINS,    KC_BSLS},
+  {_______,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, DV_ASTR, _______},
   {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   MAC_CUT,      KC_MUTE,        MAC_SLEEP}
 },
 
@@ -170,30 +168,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
  * `-----------------------------------------------------------------------------------'
 */
-// [_PLOVER] = {
-//   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-//   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-//   {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-//   {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
-// },
-
-/* Plover layer (http://opensteno.org)
- * ,-----------------------------------------------------------------------------------.
- * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
- * `-----------------------------------------------------------------------------------'
-*/
-[_PLOVER] = {
-  {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   },
-  {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC},
-  {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-  {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX}
-},
+/* [_PLOVER] = { */
+/*   {KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   }, */
+/*   {XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC}, */
+/*   {XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT}, */
+/*   {EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX} */
+/* }, */
 
 
 /* Adjust (Lower + Raise)
@@ -208,10 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {MAC_SLEEP, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,        QWERTY},
-  {KC_SYSTEM_SLEEP, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______,  _______, _______, _______,  MY_DVORAK},
-  {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, MOUSE,             DVORAK},
-  {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,           PLOVER}
+  {MAC_SLEEP,       RESET,   DEBUG,     RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,  QWERTY},
+  {KC_SYSTEM_SLEEP, _______, MU_MOD,    AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______,  MY_DVORAK},
+  {_______,         MUV_DE,  MUV_IN,    MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, KC_SLCK, KC_PAUS, _______,  DVORAK},
+  {_______,         _______, _______,   _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE,  _______,}
 },
 
 /* Mouse
@@ -225,12 +205,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_MOUSE] = {
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX},
-  { XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX},
-  { XXXXXXX, XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX},
-  { _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX}
-},
+/* [_MOUSE] = { */
+/*   { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX}, */
+/*   { XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX}, */
+/*   { XXXXXXX, XXXXXXX, KC_ACL0, KC_ACL1, KC_ACL2, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, XXXXXXX}, */
+/*   { _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX} */
+/* }, */
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
@@ -308,10 +288,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-  float plover_song[][2]     = SONG(PLOVER_SOUND);
-  //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
-#endif
+/* #ifdef AUDIO_ENABLE */
+/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
+/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
+/* #endif */
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
@@ -359,25 +339,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case PLOVER:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
+    /* case PLOVER: */
+    /*   if (record->event.pressed) { */
+    /*     #ifdef AUDIO_ENABLE */
+    /*       stop_all_notes(); */
+    /*       PLAY_SONG(plover_song); */
+    /*     #endif */
+    /*     layer_off(_RAISE); */
+    /*     layer_off(_LOWER); */
+    /*     layer_off(_ADJUST); */
+    /*     layer_on(_PLOVER); */
+    /*     if (!eeconfig_is_enabled()) { */
+    /*         eeconfig_init(); */
+    /*     } */
+    /*     keymap_config.raw = eeconfig_read_keymap(); */
+    /*     keymap_config.nkro = 1; */
+    /*     eeconfig_update_keymap(keymap_config.raw); */
+    /*   } */
+    /*   return false; */
+    /*   break; */
     case KC_ESC:
       if (record->event.pressed) {
         bool queue = true;
