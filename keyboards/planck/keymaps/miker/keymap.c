@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = {
   {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_7,    KC_8,     KC_9,     DV_PLUS,     LSFT(DV_SLSH)},
-  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     DV_MINS,    DV_MINS},
+  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     DV_MINS,    DV_UNDS},
   {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_1,    KC_2,     KC_3,     DV_ASTR, DV_BSLS},
   {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  TD(2),   KC_0,     KC_HOME,  KC_END,         KC_BSPC}
 },
@@ -306,12 +306,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    // case COLEMAK:
-    //   if (record->event.pressed) {
-    //     set_single_persistent_default_layer(_COLEMAK);
-    //   }
-    //   return false;
-    //   break;
     case MY_DVORAK:
       if (record->event.pressed) {
         print("mode just switched to my dvorak\n");
@@ -402,7 +396,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 //  [TD_LAYER_1]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 1)
 // Other declarations would go here, separated by commas, if you have them
 };
-
+ 
 const uint16_t PROGMEM fn_actions[] = {
    [F_BSE]  = ACTION_LAYER_CLEAR(ON_PRESS)
   ,[F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
