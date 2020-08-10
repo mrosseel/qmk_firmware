@@ -48,11 +48,12 @@ enum planck_keycodes {
 /* Tap Dance keys */
 enum {
   TD_SHIFT_CAPS = 0,
-  TD_COPYPASTE,
+  TD_COPYCUT,
   TD_DOTCOMMA,
   TD_LAYER_3,
   TD_DOUBLE,
-  TD_LAYER_1
+  TD_LAYER_1,
+  TD_UNDERSCORE,
 };
 
 /* Fn keys */
@@ -62,7 +63,7 @@ enum {
   F_GUI,
   F_SFT,
   F_ALT,
-  F_CTRL,
+  F_LCTL,
   F_LOWER,
   F_RAISE
 };
@@ -71,6 +72,11 @@ enum {
 #define RAISE MO(_RAISE)
 #define MAC_SLEEP LALT(LGUI(KC_SYSTEM_SLEEP))
 #define MAC_CUT LGUI(DV_X)
+#define MAC_COPY LGUI(DV_C)
+#define MAC_PASTE LGUI(DV_V)
+#define LINUX_CUT LCTL(DV_X)
+#define LINUX_COPY LCTL(DV_C)
+#define LINUX_PASTE LCTL(DV_V)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -89,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,                DV_QUOT,   DV_COMM,  DV_DOT,  DV_P,       DV_Y,    DV_F,    DV_G,       DV_C,    DV_R,    DV_L,    KC_BSPC},
   {MT(MOD_MEH,KC_ESC),    DV_A,      DV_O,     DV_E,    DV_U,       DV_I,    DV_D,    DV_H,       DV_T,    DV_N,    DV_S,    DV_SLSH},
   {F(F_SFT),              DV_SCLN,   DV_Q,     DV_J,    DV_K,       DV_X,    DV_B,    DV_M,       DV_W,    DV_V,    DV_Z,    KC_ENT },
-  {LT(_TMUX, KC_MPLY),    F(F_CTRL), F(F_ALT), KC_LGUI, TT(_LOWER), KC_SPC,  KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
+  {LT(_TMUX, KC_MPLY),    F(F_LCTL), F(F_ALT), KC_LGUI, TT(_LOWER), KC_SPC,  KC_SPC,  TT(_RAISE), KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT}
 },
 
   /* TM2030 Dvorak
@@ -107,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_TAB,    KC_QUOT,   KC_COMM,  KC_DOT,  KC_P,       KC_Y,               KC_BSPC, KC_F,        KC_G,    KC_C,    KC_R,    KC_L},
   {KC_ESC,    KC_A,      KC_O,     KC_E,    KC_U,       KC_I,               KC_ENT,  KC_D,        KC_H,    KC_T,    KC_N,    KC_S},
   {F(F_SFT),  KC_SCLN,   KC_Q,     KC_J,    KC_K,       KC_X,               KC_SLSH, KC_B,        KC_M,    KC_W,    KC_V,    KC_Z},
-  {KC_MPLY,   F(F_CTRL), F(F_ALT), KC_LGUI, LOWER, LT(_TMUX, KC_SPC),  KC_SPC,  RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_MPLY,   F(F_LCTL), F(F_ALT), KC_LGUI, LOWER, LT(_TMUX, KC_SPC),  KC_SPC,  RAISE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 */
 /* Lower
@@ -123,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = {
   {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_PGUP,  KC_7,    KC_8,     KC_9,     DV_PLUS,     LSFT(DV_SLSH)},
-  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     DV_MINS,    DV_UNDS},
+  {_______,      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_PGDN,  KC_4,    KC_5,     KC_6,     DV_MINS,    TD(6)},
   {_______,      KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_GRV,   KC_1,    KC_2,     KC_3,     DV_ASTR, DV_BSLS},
   {_______,      KC_F11,  KC_F12,  _______, _______, _______,  _______,  TD(2),   KC_0,     KC_HOME,  KC_END,         KC_BSPC}
 },
@@ -143,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {LSFT(KC_GRV), KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  _______, KC_LPRN,  KC_RPRN, DV_EQL       , DV_PLUS,  KC_DEL},
   {KC_DEL,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,    DV_LCBR,  DV_RCBR, KC_AMPERSAND , DV_MINS,  KC_BSLS},
   {_______,      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   DV_LBRC,  DV_RBRC, KC_CIRCUMFLEX, DV_ASTR,  _______},
-  {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   MAC_CUT      , KC_MUTE,  MAC_SLEEP}
+  {_______,      _______, _______, _______, _______, _______, _______,  _______,  TD(1),   LINUX_PASTE  , KC_MUTE,  MAC_SLEEP}
 },
 
 
@@ -388,9 +394,9 @@ bool music_mask_user(uint16_t keycode) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for shift, twice for Caps Lock
   [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-  [TD_COPYPASTE] = ACTION_TAP_DANCE_DOUBLE(LGUI(DV_C), LGUI(DV_V)),
+  [TD_COPYCUT] = ACTION_TAP_DANCE_DOUBLE(LINUX_COPY, LINUX_CUT),
   [TD_DOTCOMMA] = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM),
-
+  [TD_UNDERSCORE] = ACTION_TAP_DANCE_DOUBLE(DV_MINS, DV_UNDS),
 //  [TD_LAYER_3]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 3),
 //  [TD_DOUBLE] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_2),
 //  [TD_LAYER_1]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 1)
@@ -401,7 +407,7 @@ const uint16_t PROGMEM fn_actions[] = {
    [F_BSE]  = ACTION_LAYER_CLEAR(ON_PRESS)
   ,[F_SFT]  = ACTION_MODS_ONESHOT (MOD_LSFT)
   ,[F_ALT]  = ACTION_MODS_ONESHOT (MOD_LALT)
-  ,[F_CTRL] = ACTION_MODS_ONESHOT (MOD_LCTL)
+  ,[F_LCTL] = ACTION_MODS_ONESHOT (MOD_LCTL)
   // ,[F_LOWER] = ACTION_MODS_ONESHOT (LOWER)
   // ,[F_RAISE] = ACTION_MODS_ONESHOT (RAISE)
 };
