@@ -272,6 +272,42 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+<<<<<<< HEAD
+||||||| merged common ancestors
+/* #ifdef AUDIO_ENABLE */
+/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
+/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
+/* #endif */
+
+uint32_t layer_state_set_user(uint32_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+bool send_string_if_keydown(keyrecord_t *record, const char *s) {
+    if (record->event.pressed) {
+        send_string(s);
+    }
+    return true;
+}
+
+=======
+/* #ifdef AUDIO_ENABLE */
+/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
+/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
+/* #endif */
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
+bool send_string_if_keydown(keyrecord_t *record, const char *s) {
+    if (record->event.pressed) {
+        send_string(s);
+    }
+    return true;
+}
+
+>>>>>>> 4704f0936cbe886be6fd87d2eb355cf0f4ee7f8c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
