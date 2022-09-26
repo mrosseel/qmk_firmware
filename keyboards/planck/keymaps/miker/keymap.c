@@ -272,22 +272,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-/* #ifdef AUDIO_ENABLE */
-/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
-/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
-/* #endif */
-
-uint32_t layer_state_set_user(uint32_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool send_string_if_keydown(keyrecord_t *record, const char *s) {
-    if (record->event.pressed) {
-        send_string(s);
-    }
-    return true;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
@@ -344,7 +328,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //   return false;
             //   break;
         case 0:
-            return send_string_if_keydown(record, SS_LCTL("a") "0");
+            return SEND_STRING(SS_LCTL("a") "0");
             break;
         // case 1:
         //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_1), END);
@@ -372,19 +356,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     break;
         // tmux last window
         case 9:
-            return send_string_if_keydown(record, SS_LCTL("a") "l");
+            return SEND_STRING(SS_LCTL("a") "l");
             break;
         // tmux next window
         case 10:
-            return send_string_if_keydown(record, SS_LCTL("a") "n");
+            return SEND_STRING(SS_LCTL("a") "n");
             break;
         // tmux previous window
         case 11:
-            return send_string_if_keydown(record, SS_LCTL("a") "p");
+            return SEND_STRING(SS_LCTL("a") "p");
             break;
         // tmux new window
         case 12:
-            return send_string_if_keydown(record, SS_LCTL("a") "c");
+            return SEND_STRING(SS_LCTL("a") "c");
             break;
             // case 13:
             //     // vi save document
