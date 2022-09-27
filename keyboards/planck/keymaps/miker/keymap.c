@@ -15,19 +15,11 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
+// #include "action_layer.h"
 #include "keymap_dvorak.h"
 #include "sendstring_dvorak.h"
 #include "print.h"
 
-void keyboard_post_init_user(void) {
-    print("in debug");
-    // Customise these values to desired behaviour
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
-    // debug_mouse=true;
-}
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -51,22 +43,34 @@ enum planck_keycodes {
     QWERTY,
     // PLOVER,
     TMUX,
-    BACKLIT
-    /* EXT_PLV */
+    BACKLIT,
+    TMUX0,
+    TMUX1,
+    TMUX2,
+    TMUX3,
+    TMUX4,
+    TMUX5,
+    TMUX6,
+    TMUX7,
+    TMUX8,
+    TMUX9,
+    TMUX10,
+    TMUX11,
+    TMUX12,
+    TMUX13,
+    TMUX14,
+    TMUX15,
+    TMUX16,
+    TMUX17,
+    TMUX18
 };
 
-/* Tap Dance keys */
 enum {
-    TD_SHIFT_CAPS = 100,
+    TD_SHIFT_CAPS = 0,
     TD_COPYCUT,
     TD_DOTCOMMA,
-    TD_LAYER_3,
-    TD_DOUBLE,
-    TD_LAYER_1,
     TD_UNDERSCORE,
 };
-
-enum tmux_keycodes { TMUX0 = 0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX8, TMUX9, TMUX10, TMUX11, TMUX12, TMUX13, TMUX14, TMUX15, TMUX16, TMUX17, TMUX18 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -122,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |      |      |      |      |             |      |   0  | Home |  End | Bksp |
      * `-----------------------------------------------------------------------------------'
      */
-    [_LOWER] = {{LSFT(KC_GRV), KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_PGUP, KC_7, KC_8, KC_9, DV_PLUS, LSFT(DV_SLSH)}, {_______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_PGDN, KC_4, KC_5, KC_6, DV_MINS, TD(6)}, {_______, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_GRV, KC_1, KC_2, KC_3, DV_ASTR, DV_BSLS}, {_______, KC_F11, KC_F12, _______, _______, _______, _______, TD(2), KC_0, KC_HOME, KC_END, KC_BSPC}},
+    [_LOWER] = {{LSFT(KC_GRV), KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_PGUP, KC_7, KC_8, KC_9, DV_PLUS, LSFT(DV_SLSH)}, {_______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_PGDN, KC_4, KC_5, KC_6, DV_MINS, TD(TD_UNDERSCORE)}, {_______, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_GRV, KC_1, KC_2, KC_3, DV_ASTR, DV_BSLS}, {_______, KC_F11, KC_F12, _______, _______, _______, _______, TD(TD_DOTCOMMA), KC_0, KC_HOME, KC_END, KC_BSPC}},
 
     /* Raise
      * ,-----------------------------------------------------------------------------------.
@@ -135,12 +139,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |      |      |      |      |             |      |Copy/P| Cut  | Cut  | Play |
      * `-----------------------------------------------------------------------------------'
      */
-    [_RAISE] = {{LSFT(KC_GRV), KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, _______, KC_LPRN, KC_RPRN, DV_EQL, DV_PLUS, KC_DEL}, {KC_DEL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DV_LCBR, DV_RCBR, KC_AMPERSAND, DV_MINS, KC_BSLS}, {_______, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, DV_LBRC, DV_RBRC, KC_CIRCUMFLEX, DV_ASTR, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, TD(1), LINUX_PASTE, KC_MUTE, MAC_SLEEP}},
+    [_RAISE] = {{LSFT(KC_GRV), KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, _______, KC_LPRN, KC_RPRN, DV_EQL, DV_PLUS, KC_DEL}, {KC_DEL, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, DV_LCBR, DV_RCBR, KC_AMPERSAND, DV_MINS, KC_BSLS}, {_______, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, DV_LBRC, DV_RBRC, KC_CIRCUMFLEX, DV_ASTR, _______}, {_______, _______, _______, _______, _______, _______, _______, _______, TD(TD_COPYCUT), LINUX_PASTE, KC_MUTE, MAC_SLEEP}},
 
     // most macros will switch tmux screens
     // two macros are for vi's save/quit at 'w' and 'q'
-    [_TMUX] = {{TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX8, _______, TMUX9, _______}, {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX11, TMUX10, TMUX18, _______}, {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}},
+    /*
 
+     * ,------------------------------------------------------- w--------------------------.
+     * |  T0  |  T1  |  T2  |  T3  |  T4  |  T5  |  T6  |  T7  |  T12 |      |  T9  |      |
+     * |------+------+------+------+------+-------------+------+------+------+------+------|
+     * |      |  S1  |  S2  |  S3  |  S4  |  S5  |PGD   |      |  T11 |  T10 |  T18 |      |
+     * |------+------+------+------+------+------|------+------+------+------+------+------|
+     * |  SB  |  A1  |  A2  |  A3  |  A4  |  A4  |      |      |      |      |      |      |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |      |      |      |      |      |    KC_TRNS  |      |Copy/P| Cut  | Cut  | Play |
+     * `-----------------------------------------------------------------------------------'
+    {{TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX8, _______, TMUX9, _______},
+    {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX11, TMUX10, TMUX18, _______},
+    {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}},
+*/
+    [_TMUX] = {{TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX12, _______, TMUX9, _______}, {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX11, TMUX10, TMUX18, _______}, {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______}, {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}},
     /* Plover layer (http://opensteno.org)
      * ,-----------------------------------------------------------------------------------.
      * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -170,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |      |      |      |      |             |      | Vol+ | Vol- | Mouse|Plover|
      * `-----------------------------------------------------------------------------------'
      */
-    [_ADJUST] = {{MAC_SLEEP, RESET, DEBUG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QWERTY},
+    [_ADJUST] = {{MAC_SLEEP, QK_BOOT, QK_DEBUG_TOGGLE, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QWERTY},
                  {KC_SYSTEM_SLEEP, _______, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, MY_DVORAK},
                  {_______, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, KC_SLCK, KC_PAUS, _______, DVORAK},
                  {
@@ -272,17 +291,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-<<<<<<< HEAD
-||||||| merged common ancestors
-/* #ifdef AUDIO_ENABLE */
-/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
-/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
-/* #endif */
-
-uint32_t layer_state_set_user(uint32_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
 bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     if (record->event.pressed) {
         send_string(s);
@@ -290,24 +298,6 @@ bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     return true;
 }
 
-=======
-/* #ifdef AUDIO_ENABLE */
-/*   float plover_song[][2]     = SONG(PLOVER_SOUND); */
-/*   //float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND); */
-/* #endif */
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool send_string_if_keydown(keyrecord_t *record, const char *s) {
-    if (record->event.pressed) {
-        send_string(s);
-    }
-    return true;
-}
-
->>>>>>> 4704f0936cbe886be6fd87d2eb355cf0f4ee7f8c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
@@ -354,21 +344,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return queue;
             }
-            // case EXT_PLV:
-            //   if (record->event.pressed) {
-            //     #ifdef AUDIO_ENABLE
-            //       PLAY_SONG(plover_gb_song);
-            //     #endif
-            //     layer_off(_PLOVER);
-            //   }
-            //   return false;
-            //   break;
-        case 0:
-            return SEND_STRING(SS_LCTL("a") "0");
+        // case EXT_PLV:
+        //   if (record->event.pressed) {
+        //     #ifdef AUDIO_ENABLE
+        //       PLAY_SONG(plover_gb_song);
+        //     #endif
+        //     layer_off(_PLOVER);
+        //   }
+        //   return false;
+        //   break;
+        case TMUX0:
+            send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_0));
             break;
-        // case 1:
-        //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_1), END);
-        //     break;
+        case TMUX1:
+            send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_1));
+            break;
         // case 2:
         //     return send_string_if_keydown(D(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_2), END);
         //     break;
@@ -391,42 +381,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_8), END);
         //     break;
         // tmux last window
-        case 9:
-            return SEND_STRING(SS_LCTL("a") "l");
+        case TMUX9:
+            return send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_P)); // results in DV_L
             break;
-        // tmux next window
-        case 10:
-            return SEND_STRING(SS_LCTL("a") "n");
+            // tmux next window
+        case TMUX10:
+            return send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_L)); // results in DV_N
             break;
-        // tmux previous window
-        case 11:
-            return SEND_STRING(SS_LCTL("a") "p");
+            // tmux previous window
+        case TMUX11:
+            return send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_R)); // results in DV_P
             break;
-        // tmux new window
-        case 12:
-            return SEND_STRING(SS_LCTL("a") "c");
+            // tmux new window
+        case TMUX12:
+            return send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_I)); // results in DV_C
             break;
-            // case 13:
-            //     // vi save document
-            //     return send_string_if_keydown(TYPE(KC_ESC), DOWN(KC_LSFT), TYPE(KC_SCLN), UP(KC_LSFT), TYPE(KC_W), TYPE(KC_ENT), END);
-            //     break;
-            // case 14:
-            //     // vi quit
-            //     return send_string_if_keydown(TYPE(KC_ESC), DOWN(KC_LSFT), TYPE(KC_SCLN), UP(KC_LSFT), TYPE(KC_Q), TYPE(KC_ENT), END);
-            //     break;
-            //     // tmux press ctrl-b
-            // case 15:
-            //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), END);
-            //     break;
-            // case 16:
-            //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGUP), END);
-            //     break;
-            // case 17:
-            //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGDN), END);
-            //     break;
-            // case 18:
-            //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(DV_S), END);
-            //     break;
+        // case 13:
+        //     // vi save document
+        //     return send_string_if_keydown(TYPE(KC_ESC), DOWN(KC_LSFT), TYPE(KC_SCLN), UP(KC_LSFT), TYPE(KC_W), TYPE(KC_ENT), END);
+        //     break;
+        // case 14:
+        //     // vi quit
+        //     return send_string_if_keydown(TYPE(KC_ESC), DOWN(KC_LSFT), TYPE(KC_SCLN), UP(KC_LSFT), TYPE(KC_Q), TYPE(KC_ENT), END);
+        //     break;
+        //     // tmux press ctrl-b
+        // case 15:
+        //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(KC_B), UP(KC_LCTL), END);
+        //     break;
+        // case 16:
+        //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGUP), END);
+        //     break;
+        // case 17:
+        //     return send_string_if_keydown(DOWN(KC_LCTL), TYPE(DV_A), UP(KC_LCTL), TYPE(KC_PGDN), END);
+        //     break;
+        case TMUX18:
+            return send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_SCLN)); // results in DV_S
+            break;
     }
     return true;
 }
@@ -441,14 +431,4 @@ bool music_mask_user(uint16_t keycode) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for shift, twice for Caps Lock
-    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
-    [TD_COPYCUT]    = ACTION_TAP_DANCE_DOUBLE(LINUX_COPY, LINUX_CUT),
-    [TD_DOTCOMMA]   = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM),
-    [TD_UNDERSCORE] = ACTION_TAP_DANCE_DOUBLE(DV_MINS, DV_UNDS),
-    //  [TD_LAYER_3]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 3),
-    //  [TD_DOUBLE] = ACTION_TAP_DANCE_DOUBLE(KC_1, KC_2),
-    //  [TD_LAYER_1]  = ACTION_TAP_DANCE_DUAL_ROLE(KC_ESC, 1)
-    // Other declarations would go here, separated by commas, if you have them
-};
+qk_tap_dance_action_t tap_dance_actions[] = {[TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS), [TD_COPYCUT] = ACTION_TAP_DANCE_DOUBLE(LINUX_COPY, LINUX_CUT), [TD_DOTCOMMA] = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM), [TD_UNDERSCORE] = ACTION_TAP_DANCE_DOUBLE(DV_MINS, DV_UNDS)};
