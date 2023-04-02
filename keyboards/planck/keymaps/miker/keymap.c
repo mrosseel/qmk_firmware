@@ -298,6 +298,7 @@ bool send_string_if_keydown(keyrecord_t *record, const char *s) {
     return true;
 }
 
+// translation between dvorak and KC and X codes at: https://github.com/qmk/qmk_firmware/blob/master/quantum/keymap_extras/keymap_dvorak.h
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
