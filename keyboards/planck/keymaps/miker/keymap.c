@@ -20,8 +20,6 @@
 #include "sendstring_dvorak.h"
 #include "print.h"
 
-extern keymap_config_t keymap_config;
-
 enum planck_layers {
     _MY_DVORAK,
     //_DVORAK_TM2030,
@@ -189,9 +187,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |      |      |      |      |             |      | Vol+ | Vol- | Mouse|Plover|
      * `-----------------------------------------------------------------------------------'
      */
-    [_ADJUST] = {{MAC_SLEEP, QK_BOOT, QK_DEBUG_TOGGLE, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QWERTY},
-                 {KC_SYSTEM_SLEEP, _______, MU_MOD, AU_ON, AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, MY_DVORAK},
-                 {_______, MUV_DE, MUV_IN, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, KC_SLCK, KC_PAUS, _______, DVORAK},
+    [_ADJUST] = {{MAC_SLEEP, QK_BOOT, QK_DEBUG_TOGGLE, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, QWERTY},
+                 {KC_SYSTEM_SLEEP, _______, QK_MUSIC_MODE_NEXT, AU_ON, AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, MY_DVORAK},
+                 {_______, QK_AUDIO_VOICE_PREVIOUS, QK_AUDIO_VOICE_NEXT, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, KC_SCRL, KC_PAUS, _______, DVORAK},
                  {
                      _______,
                      _______,
@@ -328,10 +326,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef BACKLIGHT_ENABLE
                 backlight_step();
 #endif
-                PORTE &= ~(1 << 6);
+                // PORTE &= ~(1 << 6);
             } else {
                 unregister_code(KC_RSFT);
-                PORTE |= (1 << 6);
+                // PORTE |= (1 << 6);
             }
             return false;
             break;
@@ -432,4 +430,13 @@ bool music_mask_user(uint16_t keycode) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {[TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS), [TD_COPYCUT] = ACTION_TAP_DANCE_DOUBLE(LINUX_COPY, LINUX_CUT), [TD_DOTCOMMA] = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM), [TD_UNDERSCORE] = ACTION_TAP_DANCE_DOUBLE(DV_MINS, DV_UNDS)};
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [TD_COPYCUT] = ACTION_TAP_DANCE_DOUBLE(LINUX_COPY, LINUX_CUT),
+    [TD_DOTCOMMA] = ACTION_TAP_DANCE_DOUBLE(DV_DOT, DV_COMM),
+    [TD_UNDERSCORE] = ACTION_TAP_DANCE_DOUBLE(DV_MINS, DV_UNDS)
+};
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
