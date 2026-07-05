@@ -36,14 +36,12 @@ enum planck_keycodes {
     QWERTY,
     TMUX,
     BACKLIT,
-    TMUX0,
     TMUX1,
     TMUX2,
     TMUX3,
     TMUX4,
     TMUX5,
     TMUX6,
-    TMUX7,
     TMUX_PREV
 };
 
@@ -160,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * holding the layer + any letter sends C-a + that letter, so all
      * herdr/tmux letter bindings (w, g, e, z, h/j/k/l, ...) work mnemonically.
      * ,-----------------------------------------------------------------------------------.
-     * |  T0  |  T1  |  T2  |  T3  |  T4  |  T5  |  T6  |  T7  |      |      |      |      |
+     * |      |  T1  |  T2  |  T3  |  T4  |  T5  |  T6  |      |      |      |      |      |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |      |  S1  |  S2  |  S3  |  S4  |  S5  |PGD   |      | Prev |      |      |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -170,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_TMUX] = {
-        {TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, _______, _______, _______, _______},
+        {_______, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, _______, _______, _______, _______, _______},
         {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX_PREV, _______, _______, _______},
         {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______},
         {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}
@@ -405,9 +403,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return queue;
             }
-        case TMUX0:
-            send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_0));
-            break;
         case TMUX1:
             send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_1));
             break;
@@ -425,9 +420,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TMUX6:
             send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_6));
-            break;
-        case TMUX7:
-            send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_7));
             break;
         case TMUX_PREV:
             // previous tab stays on the T key next to N/next; X_R -> 'p' under OS dvorak
