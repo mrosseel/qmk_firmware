@@ -54,7 +54,8 @@ enum planck_keycodes {
     TMUX15,
     TMUX16,
     TMUX17,
-    TMUX18
+    TMUX18,
+    TMUX19
 };
 
 enum {
@@ -171,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+-------------+------+------+------+------+------|
      * |      |  S1  |  S2  |  S3  |  S4  |  S5  |PGD   |      |  T11 |  T10 |  T18 |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |  SB  |  A1  |  A2  |  A3  |  A4  |  A4  |      |      |      |      |      |      |
+     * |  SB  |  A1  |  A2  |  A3  |  A4  |  A4  |      |      |  T19 |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      |      |    KC_TRNS  |      |Copy/P| Cut  | Cut  | Play |
      * `-----------------------------------------------------------------------------------'
@@ -179,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_TMUX] = {
         {TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX12, _______, TMUX9, _______},
         {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX11, TMUX10, TMUX18, _______},
-        {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______},
+        {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, TMUX19, _______, _______, _______},
         {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}
     },
 
@@ -213,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------------------------------------------------'
      */
     [_ADJUST] = {
-        {MAC_SLEEP, QK_BOOT, QK_DEBUG_TOGGLE, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, QWERTY},
+        {MAC_SLEEP, QK_BOOT, QK_DEBUG_TOGGLE, UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_VALU, UG_VALD, QWERTY},
         {KC_SYSTEM_SLEEP, _______, _______, AU_ON, AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, MY_DVORAK},
         {_______, _______, _______, MU_ON, MU_OFF, MI_ON, MI_OFF, _______, KC_SCRL, KC_PAUS, _______, DVORAK},
         {_______, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______}
@@ -461,6 +462,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         case TMUX18:
             send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_SCLN));
+            break;
+        case TMUX19:
+            // C-a w (herdr workspace); X_COMMA -> 'w' under OS dvorak
+            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_COMMA));
             break;
     }
     return true;
