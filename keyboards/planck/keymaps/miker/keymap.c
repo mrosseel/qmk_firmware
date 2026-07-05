@@ -44,18 +44,7 @@ enum planck_keycodes {
     TMUX5,
     TMUX6,
     TMUX7,
-    TMUX8,
-    TMUX9,
-    TMUX10,
-    TMUX11,
-    TMUX12,
-    TMUX13,
-    TMUX14,
-    TMUX15,
-    TMUX16,
-    TMUX17,
-    TMUX18,
-    TMUX19
+    TMUX_PREV
 };
 
 enum {
@@ -167,20 +156,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     },
 
     /* TMUX
+     * Transparent keys get the prefix injected in process_record_user:
+     * holding the layer + any letter sends C-a + that letter, so all
+     * herdr/tmux letter bindings (w, g, e, z, h/j/k/l, ...) work mnemonically.
      * ,-----------------------------------------------------------------------------------.
-     * |  T0  |  T1  |  T2  |  T3  |  T4  |  T5  |  T6  |  T7  |  T12 |      |  T9  |      |
+     * |  T0  |  T1  |  T2  |  T3  |  T4  |  T5  |  T6  |  T7  |      |      |      |      |
      * |------+------+------+------+------+-------------+------+------+------+------+------|
-     * |      |  S1  |  S2  |  S3  |  S4  |  S5  |PGD   |      |  T11 |  T10 |  T18 |      |
+     * |      |  S1  |  S2  |  S3  |  S4  |  S5  |PGD   |      | Prev |      |      |      |
      * |------+------+------+------+------+------|------+------+------+------+------+------|
-     * |  SB  |  A1  |  A2  |  A3  |  A4  |  A4  |      |      |  T19 |      |      |      |
+     * |  SB  |  A1  |  A2  |  A3  |  A4  |  A4  |      |      |      |      |      |      |
      * |------+------+------+------+------+------+------+------+------+------+------+------|
      * |      |      |      |      |      |    KC_TRNS  |      |Copy/P| Cut  | Cut  | Play |
      * `-----------------------------------------------------------------------------------'
      */
     [_TMUX] = {
-        {TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, TMUX12, _______, TMUX9, _______},
-        {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX11, TMUX10, TMUX18, _______},
-        {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, TMUX19, _______, _______, _______},
+        {TMUX0, TMUX1, TMUX2, TMUX3, TMUX4, TMUX5, TMUX6, TMUX7, _______, _______, _______, _______},
+        {_______, LSFT(KC_1), LSFT(KC_2), LSFT(KC_3), LSFT(KC_4), LSFT(KC_5), KC_PGDN, _______, TMUX_PREV, _______, _______, _______},
+        {LSFT(DV_B), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), _______, _______, _______, _______, _______, _______},
         {_______, _______, _______, _______, _______, KC_TRNS, _______, _______, _______, _______, _______, _______}
     },
 
@@ -371,6 +363,13 @@ bool send_string_if_keydown(keyrecord_t *record, const char *s) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Tmux layer: inject the prefix before any transparent basic key, then
+    // let the key process normally, so layer + <key> sends C-a + <key>.
+    // Explicit TMUX* macros and wrapped keycodes (LSFT/LALT/...) are custom
+    // keycodes outside the basic range and skip this.
+    if (record->event.pressed && layer_state_is(_TMUX) && keycode >= KC_A && keycode <= KC_SLASH) {
+        send_string(SS_LCTL("a") SS_DELAY(100));
+    }
     switch (keycode) {
         case QWERTY:
             if (record->event.pressed) {
@@ -430,42 +429,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TMUX7:
             send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_7));
             break;
-        case TMUX8:
-            send_string_if_keydown(record, SS_LCTL("a") SS_TAP(X_8));
-            break;
-        case TMUX9:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_P));
-            break;
-        case TMUX10:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_L));
-            break;
-        case TMUX11:
+        case TMUX_PREV:
+            // previous tab stays on the T key next to N/next; X_R -> 'p' under OS dvorak
             send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_R));
-            break;
-        case TMUX12:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_I));
-            break;
-        case TMUX13:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_D));
-            break;
-        case TMUX14:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_E));
-            break;
-        case TMUX15:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_U));
-            break;
-        case TMUX16:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_O));
-            break;
-        case TMUX17:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_F));
-            break;
-        case TMUX18:
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_SCLN));
-            break;
-        case TMUX19:
-            // C-a w (herdr workspace); X_COMMA -> 'w' under OS dvorak
-            send_string_if_keydown(record, SS_LCTL("a") SS_DELAY(100) SS_TAP(X_COMMA));
             break;
     }
     return true;
